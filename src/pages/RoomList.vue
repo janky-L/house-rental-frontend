@@ -62,7 +62,7 @@
           <el-input v-model="form.building" :disabled="form.checkIn"></el-input>
         </el-form-item>
 
-        <el-form-item label="房间号">
+        <el-form-item label="房间号" required>
           <el-input v-model="form.roomNumber" :disabled="form.checkIn"></el-input>
         </el-form-item>
 

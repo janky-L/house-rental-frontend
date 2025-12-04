@@ -61,15 +61,15 @@
     <el-dialog v-model="dialogVisible" title="租户信息" width="560px" align-center :close-on-click-modal="false">
       <el-form :model="form" label-width="80px">
 
-        <el-form-item label="姓名">
+        <el-form-item label="姓名" required>
           <el-input v-model="form.name"></el-input>
         </el-form-item>
 
-        <el-form-item label="电话">
+        <el-form-item label="电话" required>
           <el-input v-model="form.phone"></el-input>
         </el-form-item>
 
-        <el-form-item label="身份证">
+        <el-form-item label="身份证" required>
           <el-input v-model="form.idCard"></el-input>
         </el-form-item>
 

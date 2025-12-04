@@ -102,7 +102,7 @@
     <!-- 弹窗 -->
     <el-dialog v-model="dialogVisible" title="费用信息" width="640px" align-center :close-on-click-modal="false">
       <el-form :model="form" label-width="100px">
-        <el-form-item label="房号">
+        <el-form-item label="房号" required>
           <el-select v-model="form.roomNumber" placeholder="选择房号" @change="onRoomChange" filterable clearable :disabled="isEdit">
             <el-option
               v-for="r in roomList"
@@ -115,7 +115,7 @@
         <el-form-item label="楼栋">
           <el-input v-model="form.building" :disabled="isEdit" />
         </el-form-item>
-        <el-form-item label="月份">
+        <el-form-item label="月份" required>
           <el-date-picker v-model="form.recordMonth" type="month" placeholder="选择月份" :disabled="isEdit"/>
         </el-form-item>
         <el-form-item label="房租">

@@ -87,7 +87,7 @@
         </p>
       <el-form :model="form" label-width="150px">
 
-        <el-form-item label="房号">
+        <el-form-item label="房号" required>
           <el-select v-model="form.roomNumber" placeholder="选择房号" filterable clearable :disabled="isEdit">
             <el-option
               v-for="r in roomList"
@@ -98,7 +98,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="月份">
+        <el-form-item label="月份" required>
           <el-date-picker
             v-model="form.recordMonth"
             type="month"
@@ -108,7 +108,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="记录类型">
+        <el-form-item label="记录类型" required>
           <el-radio-group v-model="form.recordType">
             <el-radio label="0">收租</el-radio>
             <el-radio label="1">新入住</el-radio>
@@ -116,19 +116,19 @@
           </el-radio-group>
         </el-form-item>
 
-        <el-form-item label="水表读数">
+        <el-form-item label="水表读数" required>
           <el-input v-model="form.waterRecord" type="number"/>
         </el-form-item>
 
-        <el-form-item :label="`水费单价(${form.waterPrice}元/吨)`">
+        <el-form-item :label="`水费单价(${form.waterPrice}元/吨)`" required>
           <el-input v-model="form.waterPrice" type="number"/>
         </el-form-item>
 
-        <el-form-item label="电表读数">
+        <el-form-item label="电表读数" required>
           <el-input v-model="form.eleRecord" type="number"/>
         </el-form-item>
 
-        <el-form-item :label="`电费单价(${form.elePrice}元/度)`">
+        <el-form-item :label="`电费单价(${form.elePrice}元/度)`" required>
           <el-input v-model="form.elePrice" type="number"/>
         </el-form-item>
 
