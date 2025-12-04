@@ -182,7 +182,7 @@ function disableFutureMonth(date) {
 
 // 弹窗
 const dialogVisible = ref(false)
-const form = reactive({waterPrice: 3.5, elePrice: 1.5})
+const form = reactive({waterPrice: 4, elePrice: 1.5})
 
 // 加载数据
 onMounted(() => {
