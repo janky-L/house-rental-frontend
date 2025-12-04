@@ -250,11 +250,11 @@ function save() {
     if (!form.elePrice) return messageError("请输入电费单价")
 
     //校验每个月只能有一条记录
-    for (let item of list.value) {
-      if (item.roomNumber === form.roomNumber && formatDateMonth(item.recordMonth) === formatDateMonth(form.recordMonth)) {
-        return messageError("该月已存在记录")
-      }
-    }
+    // for (let item of list.value) {
+    //   if (item.roomNumber === form.roomNumber && formatDateMonth(item.recordMonth) === formatDateMonth(form.recordMonth)) {
+    //     return messageError("该月已存在记录")
+    //   }
+    // }
 
     waterApi.add(form).then(() => {
         messageSuccess("新增成功")
