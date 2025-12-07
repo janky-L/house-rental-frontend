@@ -3,12 +3,14 @@
     <el-card>
       <template #header>
         <div style="display:flex; justify-content: space-between; align-items: center;">
-          <span>{{ new Date().getFullYear() }}年{{ new Date().getMonth() + 1 }}月</span>
-          <el-button type="primary" size="small" icon="el-icon-refresh" @click="refreshData">刷新</el-button>
+          <h2>本月应收租({{ new Date().getFullYear() }}年{{ new Date().getMonth() + 1 }}月)</h2>
+          <el-button type="primary" size="small" @click="refreshData" style="display: flex; align-items: center;">
+            <i class="el-icon-refresh" style="margin-right: 4px;"></i> 刷新
+          </el-button>
         </div>
       </template>
 
-      <h2>本月应收租</h2>
+      
       
       <el-table :data="list" stripe border size="small" :header-cell-style="{ background: '#f7f8fa' }" style="margin-top:20px">
         <el-table-column prop="roomNumber" label="房间" align="center"/>
