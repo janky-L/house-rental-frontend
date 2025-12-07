@@ -244,7 +244,7 @@ function openAdd() {
   Object.assign(form, {
     id: null,
     roomNumber: '',
-    recordMonth: defaultDate,
+    recordMonth: defaultDate + '-01',
     recordType: '0',
     waterRecord: '',
     eleRecord: '',

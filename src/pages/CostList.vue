@@ -50,6 +50,11 @@
             {{ formatDateMonth(scope.row.recordMonth) }}
           </template>
         </el-table-column>
+        <el-table-column prop="" label="收租日" align="center">
+          <template #default="scope">
+            {{ formatPerDate(scope.row.roomNumber) }}
+          </template>
+        </el-table-column>
         <el-table-column prop="rentFee" label="房租" align="center"/>
         <el-table-column prop="preWaterRecord" label="上次水表读数(吨)" align="center"/>
         <el-table-column prop="waterRecord" label="当前水表读数(吨)" align="center"/>
@@ -182,7 +187,7 @@ import dayjs from 'dayjs'
 import * as XLSX from "xlsx"
 import costApi from '../api/cost'
 import roomApi from '../api/room'
-import { confirmDelete, messageSuccess, messageError, formatDateTime, formatDateMonth } from '../utils/utils';
+import { confirmDelete, messageSuccess, messageError, formatDateTime, formatDateMonth, formatDate } from '../utils/utils';
 
 const list = ref([])
 const total = ref(0)
@@ -253,7 +258,12 @@ function onRoomChange() {
   }
 }
 
-
+function formatPerDate(rooNumber) {
+  const room = roomList.value.find(r => r.roomNumber === rooNumber)
+  if (room) {
+    return room.checkInDate ? parseInt(room.checkInDate.substring(8, 10)) + '号' : ''
+  }
+}
 
 // ⭐ 分页
 function handlePageChange(page) {
