@@ -21,6 +21,7 @@
           </el-table-column>
 
           <el-table-column type="index" label="排名" width="60" align="center" />
+          <el-table-column prop="building" label="楼栋" align="center"/>
           <el-table-column prop="roomNumber" label="房号" align="center" />
           <el-table-column prop="used" label="年度用水量(吨)" align="center" />
         </el-table>
@@ -44,6 +45,7 @@
           </el-table-column>
 
           <el-table-column type="index" label="排名" width="60" align="center" />
+          <el-table-column prop="building" label="楼栋" align="center"/>
           <el-table-column prop="roomNumber" label="房号" align="center" />
           <el-table-column prop="used" label="年度用电量(度)" align="center" />
         </el-table>

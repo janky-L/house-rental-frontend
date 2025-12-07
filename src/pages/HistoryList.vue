@@ -33,6 +33,7 @@
 
       <!-- 表格 -->
       <el-table :data="list" stripe border>
+        <el-table-column prop="building" label="楼栋" align="center"/>
         <el-table-column prop="roomNumber" label="房号" align="center" />
         <el-table-column prop="tenantName" label="租户" align="center" />
         <el-table-column prop="phone" label="电话" align="center" width="120" />

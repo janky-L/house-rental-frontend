@@ -13,6 +13,7 @@
       
       
       <el-table :data="list" stripe border size="small" :header-cell-style="{ background: '#f7f8fa' }" style="margin-top:20px">
+        <el-table-column prop="building" label="楼栋" align="center"/>
         <el-table-column prop="roomNumber" label="房间" align="center"/>
         <el-table-column prop="recordMonth" label="月份" align="center"/>
         <el-table-column prop="rentDay" label="收租日" align="center"/>

@@ -43,8 +43,8 @@
 
       <!-- 表格 -->
       <el-table :data="list" stripe border size="small" :header-cell-style="{ background: '#f7f8fa' }" show-summary :summary-method="summaryMethod">
-        <el-table-column prop="roomNumber" label="房号" align="center"/>
         <el-table-column prop="building" label="楼栋" align="center"/>
+        <el-table-column prop="roomNumber" label="房号" align="center"/>
         <el-table-column prop="recordMonth" label="月份" align="center" width="100">
           <template #default="scope">
             {{ formatDateMonth(scope.row.recordMonth) }}
@@ -105,7 +105,10 @@
 
     <!-- 弹窗 -->
     <el-dialog v-model="dialogVisible" title="费用信息" width="640px" align-center :close-on-click-modal="false">
-      <el-form :model="form" label-width="100px">
+      <el-form :model="form" label-width="150px">
+        <el-form-item label="楼栋">
+          <el-input v-model="form.building" :disabled="isEdit" />
+        </el-form-item>
         <el-form-item label="房号" required>
           <el-select v-model="form.roomNumber" placeholder="选择房号" @change="onRoomChange" filterable clearable :disabled="isEdit">
             <el-option
@@ -115,9 +118,6 @@
               :value="r.roomNumber"
             />
           </el-select>
-        </el-form-item>
-        <el-form-item label="楼栋">
-          <el-input v-model="form.building" :disabled="isEdit" />
         </el-form-item>
         <el-form-item label="月份" required>
           <el-date-picker v-model="form.recordMonth" type="month" placeholder="选择月份" :disabled="isEdit"/>

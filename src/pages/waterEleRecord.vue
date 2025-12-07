@@ -35,6 +35,7 @@
 
       <!-- ⭐ 表格 -->
       <el-table :data="list" border stripe>
+        <el-table-column prop="building" label="楼栋" align="center"/>
         <el-table-column prop="roomNumber" label="房号" align="center" />
         <el-table-column prop="recordMonth" label="月份" align="center">
           <template #default="scope">
@@ -86,7 +87,10 @@
             只需要输入本月对应的水电表读数，系统会根据上一次的读数和当前单价自动计算本月水电费用，并自动在费用管理模块生成一条对应的缴费记录（状态为未缴费）。
         </p>
       <el-form :model="form" label-width="150px">
-
+        
+        <el-form-item label="楼栋">
+          <el-input v-model="form.building" :disabled="isEdit" />
+        </el-form-item>
         <el-form-item label="房号" required>
           <el-select v-model="form.roomNumber" placeholder="选择房号" filterable clearable :disabled="isEdit">
             <el-option
