@@ -228,6 +228,7 @@ function handleSizeChange(size) {
 
 // 新增
 function openAdd() {
+  roomApi.list().then(res => roomList.value = res)
   Object.assign(form, {
     id: null,
     roomNumber: '',

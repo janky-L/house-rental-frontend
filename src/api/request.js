@@ -3,8 +3,7 @@ import { useUserStore } from "../store"
 import router from "../router"
 
 const instance = axios.create({
-  baseURL: "/api", // 后端地址
-  // baseURL: "http://localhost:8088", // 后端地址
+  baseURL: import.meta.env.VITE_API_URL, // 后端地址
   timeout: 5000
 })
 

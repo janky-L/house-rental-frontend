@@ -28,7 +28,7 @@
         <el-table-column prop="name" label="姓名" align="center"/>
         <el-table-column prop="phone" label="电话" align="center"/>
        <el-table-column prop="idCard" label="身份证" align="center"/>
-        <el-table-column prop="remark" label="备注" align="center"/>
+        <el-table-column prop="remark" label="家庭住址" align="center"/>
         <el-table-column prop="createTime" label="创建时间" align="center">
             <template #default="scope">
                 {{ formatDateTime(scope.row.createTime) }}
@@ -73,8 +73,8 @@
           <el-input v-model="form.idCard"></el-input>
         </el-form-item>
 
-        <el-form-item label="备注">
-          <el-input v-model="form.remark"></el-input>
+        <el-form-item label="家庭住址">
+          <el-input v-model="form.remark" maxlength="200" how-word-limit rows="4"></el-input>
         </el-form-item>
 
       </el-form>

@@ -51,8 +51,12 @@
           </template>
         </el-table-column>
         <el-table-column prop="rentFee" label="房租" align="center"/>
+        <el-table-column prop="preWaterRecord" label="上次水表读数(吨)" align="center"/>
+        <el-table-column prop="waterRecord" label="当前水表读数(吨)" align="center"/>
         <el-table-column prop="waterFee" label="水费" align="center"/>
-        <el-table-column prop="electricityFee" label="电费" align="center"/>
+        <el-table-column prop="preEleRecord" label="上次电表读数(度)" align="center"/>
+        <el-table-column prop="eleRecord" label="当前电表读数(度)" align="center"/>
+        <el-table-column prop="eleFee" label="电费" align="center"/>
         <!-- <el-table-column prop="gasFee" label="燃气费" align="center"/>
         <el-table-column prop="internetFee" label="网费" align="center"/> -->
         <el-table-column prop="otherFee" label="其他" align="center"/>
@@ -121,11 +125,23 @@
         <el-form-item label="房租">
           <el-input v-model="form.rentFee" type="number"/>
         </el-form-item>
+        <el-form-item label="上次水表读数(吨)">
+          <el-input v-model="form.preWaterRecord" type="number"/>
+        </el-form-item>
+        <el-form-item label="当前水表读数(吨)">
+          <el-input v-model="form.waterRecord" type="number"/>
+        </el-form-item>
         <el-form-item label="水费">
           <el-input v-model="form.waterFee" type="number"/>
         </el-form-item>
+        <el-form-item label="上次电表读数(度)">
+          <el-input v-model="form.preEleRecord" type="number"/>
+        </el-form-item>
+        <el-form-item label="当前电表读数(度)">
+          <el-input v-model="form.eleRecord" type="number"/>
+        </el-form-item>
         <el-form-item label="电费">
-          <el-input v-model="form.electricityFee" type="number"/>
+          <el-input v-model="form.eleFee" type="number"/>
         </el-form-item>
         <!-- <el-form-item label="燃气费">
           <el-input v-model="form.gasFee" type="number"/>
@@ -178,12 +194,12 @@ const form = reactive({})
 
 // 监听费用变化，自动计算总费用
 watch(
-  () => [form.rentFee, form.waterFee, form.electricityFee, form.gasFee, form.internetFee, form.otherFee],
+  () => [form.rentFee, form.waterFee, form.eleFee, form.gasFee, form.internetFee, form.otherFee],
   () => {
     form.totalFee =
       (Number(form.rentFee) || 0) +
       (Number(form.waterFee) || 0) +
-      (Number(form.electricityFee) || 0) +
+      (Number(form.eleFee) || 0) +
       (Number(form.gasFee) || 0) +
       (Number(form.internetFee) || 0) +
       (Number(form.otherFee) || 0)
@@ -276,13 +292,14 @@ function summaryMethod({ columns, data }) {
 }
 
 function openAdd() {
+  roomApi.list().then(res => roomList.value = res)
   Object.assign(form, {
     id: null,
     roomNumber: '',
     building: '',
     rentFee: 0,
     waterFee: 0,
-    electricityFee: 0,
+    eleFee: 0,
     gasFee: 0,
     internetFee: 0,
     otherFee: 0,
@@ -295,6 +312,7 @@ function openAdd() {
 }
 
 function edit(row) {
+  roomApi.list().then(res => roomList.value = res)
   Object.assign(form, row)
   isEdit.value = true
   dialogVisible.value = true
@@ -324,25 +342,26 @@ function save() {
             return
         }
         confirmDelete('请确认是否已收到的总金额为:' + form.totalFee + '元').then(() => {
-            costApi.update(form).then(() => {
-                isEdit.value = false
-                messageSuccess('更新成功')
-                load()
-            })
+          dialogVisible.value = false
+          costApi.update(form).then(() => {
+              isEdit.value = false
+              messageSuccess('更新成功')
+              load()
+          })
         })
     } else {
         //校验每个月只能有一条记录
-        for (let item of list.value) {
-            if (item.roomNumber === form.roomNumber && formatDateMonth(item.recordMonth) === formatDateMonth(form.recordMonth)) {
-                return messageError("该月已存在记录")
-            }
-        }
+        // for (let item of list.value) {
+        //     if (item.roomNumber === form.roomNumber && formatDateMonth(item.recordMonth) === formatDateMonth(form.recordMonth)) {
+        //         return messageError("该月已存在记录")
+        //     }
+        // }
         costApi.add(form).then(() => {
             messageSuccess('新增成功')
             load()
         })
+        dialogVisible.value = false
     }
-    dialogVisible.value = false
 }
 
 function remove(row) {
@@ -368,8 +387,12 @@ function exportExcel() {
     '楼栋': row.building,
     '月份': formatDateMonth(row.recordMonth),
     '房租': row.rentFee,
+    '上次水表读数(吨)': row.preWaterRecord,
+    '水表读数(吨)': row.waterRecord,
     '水费': row.waterFee,
-    '电费': row.electricityFee,
+    '上次电表读数(度)': row.preEleRecord,
+    '电表读数(度)': row.eleRecord,
+    '电费': row.eleFee,
     '其他费用': row.otherFee,
     '总费用': row.totalFee,
     '状态': row.status === 0 ? '未缴费' : '已缴费',

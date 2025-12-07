@@ -142,6 +142,8 @@ function load() {
 }
 
 function openAdd() {
+  tenantApi.list().then(res => tenantList.value = res.records);
+  
   form.id = null
   form.roomNumber = ''
   form.building = ''
