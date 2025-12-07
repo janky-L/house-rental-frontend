@@ -87,12 +87,12 @@
             只需要输入本月对应的水电表读数，系统会根据上一次的读数和当前单价自动计算本月水电费用，并自动在费用管理模块生成一条对应的缴费记录（状态为未缴费）。
         </p>
       <el-form :model="form" label-width="150px">
-        
+
         <el-form-item label="楼栋">
-          <el-input v-model="form.building" :disabled="isEdit" />
+          <el-input v-model="form.building" disabled/>
         </el-form-item>
         <el-form-item label="房号" required>
-          <el-select v-model="form.roomNumber" placeholder="选择房号" filterable clearable :disabled="isEdit">
+          <el-select v-model="form.roomNumber" placeholder="选择房号" @change="onRoomChange" filterable clearable :disabled="isEdit">
             <el-option
               v-for="r in roomList"
               :key="r.id"
@@ -209,6 +209,14 @@ function load() {
   })
 }
 
+// 房号改变时，自动填充楼栋
+function onRoomChange() {
+  const room = roomList.value.find(r => r.roomNumber === form.roomNumber)
+  if (room) {
+    form.building = room.building
+  }
+}
+
 function resetQuery() {
   Object.assign(query, {
     roomNumber: '',
@@ -236,7 +244,7 @@ function openAdd() {
   Object.assign(form, {
     id: null,
     roomNumber: '',
-    recordMonth: '',
+    recordMonth: defaultDate,
     recordType: '0',
     waterRecord: '',
     eleRecord: '',

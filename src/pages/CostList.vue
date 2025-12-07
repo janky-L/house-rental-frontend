@@ -107,7 +107,7 @@
     <el-dialog v-model="dialogVisible" title="费用信息" width="640px" align-center :close-on-click-modal="false">
       <el-form :model="form" label-width="150px">
         <el-form-item label="楼栋">
-          <el-input v-model="form.building" :disabled="isEdit" />
+          <el-input v-model="form.building" disabled/>
         </el-form-item>
         <el-form-item label="房号" required>
           <el-select v-model="form.roomNumber" placeholder="选择房号" @change="onRoomChange" filterable clearable :disabled="isEdit">
@@ -304,7 +304,7 @@ function openAdd() {
     internetFee: 0,
     otherFee: 0,
     totalFee: 0,
-    recordMonth: '',
+    recordMonth: new Date(),
     status: 0,
     remark: ''
   })

@@ -143,7 +143,7 @@ function load() {
 
 function openAdd() {
   tenantApi.list().then(res => tenantList.value = res.records);
-  
+
   form.id = null
   form.roomNumber = ''
   form.building = ''
@@ -203,6 +203,7 @@ function onTenantChange() {
 
 function openCheckIn(row) {
     Object.assign(form, row);
+    form.checkInDate = new Date();
     form.checkIn = true;
     dialogVisible.value = true;
 }
