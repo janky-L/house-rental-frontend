@@ -1,7 +1,13 @@
 <template>
   <div>
     <el-card>
-      <h2>{{ new Date().getFullYear() }}年{{ new Date().getMonth() + 1 }}月</h2>
+      <template #header>
+        <div style="display:flex; justify-content: space-between; align-items: center;">
+          <span>{{ new Date().getFullYear() }}年{{ new Date().getMonth() + 1 }}月</span>
+          <el-button type="primary" size="small" icon="el-icon-refresh" @click="refreshData">刷新</el-button>
+        </div>
+      </template>
+
       <h2>本月应收租</h2>
       
       <el-table :data="list" stripe border size="small" :header-cell-style="{ background: '#f7f8fa' }" style="margin-top:20px">
@@ -33,30 +39,17 @@ import dayjs from "dayjs"
 import api from "../api/stat"
 
 const list = ref([])
-const waterList = ref([])
-const eleList = ref([])
-
-const year = new Date().getFullYear();
-const month = String(new Date().getMonth() + 1).padStart(2, '0');
-const day = String(dayjs().date()).padStart(2, '0');
-// 前一年
-const prevYear = year - 1;
-const defaultStartDate = `${prevYear}-12-01`;
-const defaultEndDate = `${year}-${month}-${day}`;
-
-// 查询
-const query = reactive({
-  startDate: defaultStartDate,
-  endDate: defaultEndDate
-})
 
 onMounted(() => {
   api.stat().then(res => list.value = res)
-  api.report(query).then(res => {
-    waterList.value = res.waterList
-    eleList.value = res.eleList
-  })
 })
+
+// 刷新数据
+function refreshData() {
+  api.stat().then(res => list.value = res)
+}
+
+
 
 defineOptions({
   name: "Statistics"
